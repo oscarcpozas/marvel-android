@@ -1,4 +1,4 @@
-package com.github.oscarcpozas.marvel.client.data.source;
+package com.github.oscarcpozas.marvel.client.di.scopes;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

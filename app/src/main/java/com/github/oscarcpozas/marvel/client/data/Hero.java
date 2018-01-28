@@ -1,6 +1,16 @@
 package com.github.oscarcpozas.marvel.client.data;
 
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.http.GET;
+
 public class Hero {
+
+    public interface HeroesService {
+        @GET("bins/bvyob")
+        Call<List<Hero>> heroes();
+    }
 
     private final String name;
     private final String realName;

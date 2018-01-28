@@ -10,7 +10,8 @@
         android:theme="@style/AppTheme"
         android:name=".MarvelApplication">
 
-        <activity android:name=".modules.home.ui.HomeActivity">
+        <activity android:name=".modules.home.ui.HomeActivity"
+            android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
