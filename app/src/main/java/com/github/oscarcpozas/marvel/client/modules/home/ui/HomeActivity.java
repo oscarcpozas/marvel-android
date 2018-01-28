@@ -3,17 +3,19 @@ package com.github.oscarcpozas.marvel.client.modules.home.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.FrameLayout;
 
 import com.github.oscarcpozas.marvel.client.R;
 import com.github.oscarcpozas.marvel.client.modules.home.ui.presenter.HomePresenter;
 import com.github.oscarcpozas.marvel.client.utils.ActivityUtils;
 
-import butterknife.BindView;
+import javax.inject.Inject;
 
-public class HomeActivity extends AppCompatActivity {
+import dagger.Lazy;
+import dagger.android.support.DaggerAppCompatActivity;
 
-    @BindView(R.id.frame_container) FrameLayout container;
+public class HomeActivity extends DaggerAppCompatActivity {
+
+    @Inject Lazy<HomeFragment> fragmentProvider;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -21,13 +23,11 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         HomeFragment fragment =
-                (HomeFragment) getSupportFragmentManager().findFragmentById(container.getId());
+                (HomeFragment) getSupportFragmentManager().findFragmentById(R.id.frame_container);
         if (fragment == null) {
-            fragment = HomeFragment.newInstance();
+            fragment = fragmentProvider.get();
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
-                    fragment, container.getId());
+                    fragment, R.id.frame_container);
         }
-
-        new HomePresenter(fragment);
     }
 }
