@@ -1,42 +1,85 @@
 package com.github.oscarcpozas.marvel.client.data;
 
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.http.GET;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class Hero {
 
-    public interface HeroesService {
-        @GET("bins/bvyob")
-        Call<List<Hero>> heroes();
-    }
-
-    private final String name;
-    private final String realName;
-    private final String photo;
-    private final String description;
-
-    public Hero(String name, String realName, String photo, String description) {
-        this.name = name;
-        this.realName = realName;
-        this.photo = photo;
-        this.description = description;
-    }
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("photo")
+    @Expose
+    private String photo;
+    @SerializedName("realName")
+    @Expose
+    private String realName;
+    @SerializedName("height")
+    @Expose
+    private String height;
+    @SerializedName("power")
+    @Expose
+    private String power;
+    @SerializedName("abilities")
+    @Expose
+    private String abilities;
+    @SerializedName("groups")
+    @Expose
+    private String groups;
 
     public String getName() {
         return name;
     }
 
-    public String getRealName() {
-        return realName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPhoto() {
         return photo;
     }
 
-    public String getDescription() {
-        return description;
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public String getHeight() {
+        return height;
+    }
+
+    public void setHeight(String height) {
+        this.height = height;
+    }
+
+    public String getPower() {
+        return power;
+    }
+
+    public void setPower(String power) {
+        this.power = power;
+    }
+
+    public String getAbilities() {
+        return abilities;
+    }
+
+    public void setAbilities(String abilities) {
+        this.abilities = abilities;
+    }
+
+    public String getGroups() {
+        return groups;
+    }
+
+    public void setGroups(String groups) {
+        this.groups = groups;
     }
 }

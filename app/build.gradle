@@ -31,6 +31,9 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.google.code.gson:gson:2.8.2'
+    implementation('com.karumi:dexter:4.2.0') {
+        exclude group: 'com.android.suppport'
+    }
 
     // Dagger dependencies
     compileOnly 'org.glassfish:javax.annotation:10.0-b28'

@@ -6,7 +6,8 @@ public interface MVPContract {
 
     }
 
-    interface BasePresenter {
+    interface BasePresenter<P extends BaseView> {
+        void setView(P view);
         void start();
     }
 }

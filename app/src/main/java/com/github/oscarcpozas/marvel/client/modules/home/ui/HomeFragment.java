@@ -18,6 +18,7 @@ import com.github.oscarcpozas.marvel.client.di.scopes.FragmentScoped;
 import com.github.oscarcpozas.marvel.client.modules.home.HomeContract;
 import com.github.oscarcpozas.marvel.client.modules.home.ui.adapter.HomeDataAdapter;
 import com.github.oscarcpozas.marvel.client.modules.home.ui.presenter.HomePresenter;
+import com.karumi.dexter.Dexter;
 
 import java.util.List;
 
@@ -25,6 +26,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.BindsInstance;
 
 @ActivityScoped
 public class HomeFragment extends Fragment implements HomeContract.View {
@@ -36,9 +38,16 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 
     @BindView(R.id.home_recycler_view) RecyclerView recyclerView;
     @BindView(R.id.home_loading_view) LinearLayout loadingView;
+    @BindView(R.id.home_error_view) LinearLayout errorView;
 
     @Inject public HomeFragment() {
 
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        presenter.setView(this);
     }
 
     @Nullable
@@ -73,5 +82,10 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     public void showHeroes(List<Hero> heroes) {
         recyclerAdapter.addAll(heroes);
         recyclerAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showErrorLoadingHeroes() {
+        errorView.setVisibility(View.VISIBLE);
     }
 }

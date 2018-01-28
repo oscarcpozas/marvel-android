@@ -13,11 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class NetModule {
 
-    final String baseURL;
-
-    public NetModule(String baseURL) {
-        this.baseURL = baseURL;
-    }
+    final String baseURL = "https://api.myjson.com/";
 
     @Singleton
     @Provides Gson provideGson() {

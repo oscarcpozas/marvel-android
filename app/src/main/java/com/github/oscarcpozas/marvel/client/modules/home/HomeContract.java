@@ -8,12 +8,13 @@ import java.util.List;
 
 public interface HomeContract {
 
-    interface Presenter extends MVPContract.BasePresenter {
+    interface Presenter extends MVPContract.BasePresenter<View> {
         void loadHeroesData();
     }
 
     interface View extends MVPContract.BaseView<Presenter> {
         void setLoadingIndicator(boolean visible);
         void showHeroes(List<Hero> heroes);
+        void showErrorLoadingHeroes();
     }
 }

@@ -3,6 +3,7 @@ package com.github.oscarcpozas.marvel.client.data.source.remote;
 import android.support.annotation.NonNull;
 
 import com.github.oscarcpozas.marvel.client.data.Hero;
+import com.github.oscarcpozas.marvel.client.data.HeroResponse;
 import com.github.oscarcpozas.marvel.client.data.source.HeroesDataSource;
 
 import java.util.List;
@@ -26,16 +27,20 @@ public class HeroesRemoteDataSource implements HeroesDataSource {
 
     @Override
     public void getHeroes(final GetHeroesCallback callback) {
-        Call<List<Hero>> call = retrofit.create(Hero.HeroesService.class).heroes();
-        call.enqueue(new Callback<List<Hero>>() {
+        Call<HeroResponse> call = retrofit.create(HeroResponse.HeroesService.class).heroes();
+        call.enqueue(new Callback<HeroResponse>() {
             @Override
-            public void onResponse(@NonNull Call<List<Hero>> call,
-                                   @NonNull Response<List<Hero>> response) {
-                callback.onHeroesLoaded(response.body());
+            public void onResponse(@NonNull Call<HeroResponse> call,
+                                   @NonNull Response<HeroResponse> response) {
+                if (response.isSuccessful()) {
+                    callback.onHeroesLoaded(response.body().getSuperheroes());
+                } else {
+                    callback.onHeroesNotLoaded();
+                }
             }
 
             @Override
-            public void onFailure(@NonNull Call<List<Hero>> call,
+            public void onFailure(@NonNull Call<HeroResponse> call,
                                   @NonNull Throwable t) {
                 callback.onHeroesNotLoaded();
             }

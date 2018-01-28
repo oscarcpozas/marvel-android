@@ -1,5 +1,7 @@
 package com.github.oscarcpozas.marvel.client.modules.home.ui.presenter;
 
+import android.support.annotation.NonNull;
+
 import com.github.oscarcpozas.marvel.client.data.Hero;
 import com.github.oscarcpozas.marvel.client.data.source.HeroesDataSource;
 import com.github.oscarcpozas.marvel.client.data.source.HeroesRepository;
@@ -19,6 +21,11 @@ public class HomePresenter implements HomeContract.Presenter {
 
     @Inject HomePresenter(HeroesRepository heroesRepository) {
         this.heroesRepository = heroesRepository;
+    }
+
+    @Override
+    public void setView(@NonNull HomeContract.View view) {
+        homeView = view;
     }
 
     @Override
@@ -45,7 +52,8 @@ public class HomePresenter implements HomeContract.Presenter {
 
             @Override
             public void onHeroesNotLoaded() {
-                // TODO: Implement error loading heroes
+                homeView.setLoadingIndicator(false);
+                homeView.showErrorLoadingHeroes();
             }
         });
     }
