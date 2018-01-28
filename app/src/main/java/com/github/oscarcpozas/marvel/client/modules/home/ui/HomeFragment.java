@@ -1,5 +1,6 @@
 package com.github.oscarcpozas.marvel.client.modules.home.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,15 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.github.oscarcpozas.marvel.client.MVPContract;
 import com.github.oscarcpozas.marvel.client.R;
 import com.github.oscarcpozas.marvel.client.data.Hero;
 import com.github.oscarcpozas.marvel.client.di.scopes.ActivityScoped;
-import com.github.oscarcpozas.marvel.client.di.scopes.FragmentScoped;
+import com.github.oscarcpozas.marvel.client.modules.details.ui.DetailActivity;
 import com.github.oscarcpozas.marvel.client.modules.home.HomeContract;
 import com.github.oscarcpozas.marvel.client.modules.home.ui.adapter.HomeDataAdapter;
-import com.github.oscarcpozas.marvel.client.modules.home.ui.presenter.HomePresenter;
-import com.karumi.dexter.Dexter;
 
 import java.util.List;
 
@@ -26,19 +24,19 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import dagger.BindsInstance;
+
+import static com.github.oscarcpozas.marvel.client.modules.details.ui.DetailActivity.HERO_KEY;
 
 @ActivityScoped
 public class HomeFragment extends Fragment implements HomeContract.View {
-    private static final String TAG = HomeFragment.class.getCanonicalName();
 
     @Inject HomeContract.Presenter presenter;
 
     private HomeDataAdapter recyclerAdapter;
 
-    @BindView(R.id.home_recycler_view) RecyclerView recyclerView;
-    @BindView(R.id.home_loading_view) LinearLayout loadingView;
-    @BindView(R.id.home_error_view) LinearLayout errorView;
+    @BindView(R.id.home_rv_heroes_list) RecyclerView recyclerView;
+    @BindView(R.id.home_ll_loading_view) LinearLayout loadingView;
+    @BindView(R.id.home_ll_error_view) LinearLayout errorView;
 
     @Inject public HomeFragment() {
 
@@ -87,5 +85,12 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     @Override
     public void showErrorLoadingHeroes() {
         errorView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void openDetailScreen(Hero hero) {
+        Intent intent = new Intent(getContext(), DetailActivity.class);
+        intent.putExtra(HERO_KEY, hero);
+        startActivity(intent);
     }
 }

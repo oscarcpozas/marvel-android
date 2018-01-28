@@ -1,9 +1,14 @@
 package com.github.oscarcpozas.marvel.client.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Hero {
+import java.io.Serializable;
+
+public class Hero implements Parcelable {
 
     @SerializedName("name")
     @Expose
@@ -26,6 +31,18 @@ public class Hero {
     @SerializedName("groups")
     @Expose
     private String groups;
+
+    public Hero(Parcel in) {
+        String[] data = new String[7];
+        in.readStringArray(data);
+        name = data[0];
+        photo = data[1];
+        realName = data[2];
+        height = data[3];
+        power = data[4];
+        abilities = data[5];
+        groups = data[6];
+    }
 
     public String getName() {
         return name;
@@ -82,4 +99,26 @@ public class Hero {
     public void setGroups(String groups) {
         this.groups = groups;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeStringArray(new String[] {
+                name, photo, realName, height, power, abilities, groups
+        });
+    }
+
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public Hero createFromParcel(Parcel in) {
+            return new Hero(in);
+        }
+
+        public Hero[] newArray(int size) {
+            return new Hero[size];
+        }
+    };
 }

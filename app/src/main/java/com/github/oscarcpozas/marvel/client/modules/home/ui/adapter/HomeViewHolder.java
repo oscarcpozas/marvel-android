@@ -39,7 +39,7 @@ public class HomeViewHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                presenter.onHeroClicked(hero);
             }
         });
     }

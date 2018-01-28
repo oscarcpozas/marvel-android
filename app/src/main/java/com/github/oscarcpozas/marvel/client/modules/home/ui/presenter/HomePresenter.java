@@ -14,7 +14,6 @@ import javax.inject.Inject;
 
 @ActivityScoped
 public class HomePresenter implements HomeContract.Presenter {
-    private static final String TAG = HomePresenter.class.getCanonicalName();
 
     private final HeroesRepository heroesRepository;
     private HomeContract.View homeView;
@@ -38,13 +37,18 @@ public class HomePresenter implements HomeContract.Presenter {
         loadHeroes();
     }
 
+    @Override
+    public void onHeroClicked(Hero hero) {
+        homeView.openDetailScreen(hero);
+    }
+
     private void loadHeroes() {
         heroesRepository.getHeroes(new HeroesDataSource.GetHeroesCallback() {
             @Override
             public void onHeroesLoaded(List<Hero> heroes) {
                 homeView.setLoadingIndicator(false);
                 if (heroes.isEmpty()) {
-                    // TODO: Implement empty case
+                    homeView.showErrorLoadingHeroes();
                 } else {
                     homeView.showHeroes(heroes);
                 }
