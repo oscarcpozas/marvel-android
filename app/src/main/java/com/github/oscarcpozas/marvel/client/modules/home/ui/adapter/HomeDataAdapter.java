@@ -24,6 +24,7 @@ public class HomeDataAdapter extends RecyclerView.Adapter<HomeViewHolder> {
     }
 
     public void addAll(Collection<Hero> heroes) {
+        this.heroes.clear();
         this.heroes.addAll(heroes);
     }
 
