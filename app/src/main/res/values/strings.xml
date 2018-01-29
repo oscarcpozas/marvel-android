@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">marvel-android</string>
+    <string name="error_loading">Error loading heroes</string>
+    <string name="search_your_hero">Search your hero</string>
 </resources>
